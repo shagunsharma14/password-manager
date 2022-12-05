@@ -3,7 +3,7 @@ from tkinter import messagebox  # To import the message box
 from random import randint, choice, shuffle
 import pyperclip
 
-EMAIL = "20e43@sdmit.in"
+EMAIL = "abc@email.com"
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
