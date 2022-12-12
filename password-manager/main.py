@@ -2,6 +2,7 @@ from tkinter import *  # imports only classes and constants doesn't import messa
 from tkinter import messagebox  # To import the message box
 from random import randint, choice, shuffle
 import pyperclip
+import json
 
 EMAIL = "abc@email.com"
 
@@ -33,15 +34,30 @@ def generate_password():
 def save_data():
     website = website_entry.get()
     email = email_entry.get()
-    password_field = password_entry.get()
-    if len(website) <= 0 or len(password_field) <= 0 or len(email) <= 0:
+    password = password_entry.get()
+    new_data = {
+        website: {
+            "email": email,
+            "password": password
+        }
+    }
+    if len(website) == 0 or len(password) == 0:
         messagebox.showinfo(title="Oops", message="please don't leave any of the field empty!")
     else:
-        is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} \n"
-                                                              f"Password: {password_field}\nIs it ok to save?")
-        if is_ok:
-            with open("data.txt", "a") as f:
-                f.write(f"{website} | {email} | {password_field}\n")
+        try:
+            with open("data.json", "r") as data_file:
+                # Reading old data
+                data = json.load(data_file)
+                # Updating old data with new data
+                data.update(new_data)
+        except FileNotFoundError:
+            with open("data.json","w") as data_file:
+                json.dump(data,data_file,indent=4)
+
+        with open("data.json", "w") as data_file:
+            # Saving update data
+            json.dump(data, data_file, indent=4)
+
             website_entry.delete(0, END)
             password_entry.delete(0, END)
 
