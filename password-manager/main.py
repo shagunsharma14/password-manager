@@ -32,7 +32,7 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_data():
-    website = website_entry.get()
+    website = website_entry.get() # use get() method to access the entries of the labels
     email = email_entry.get()
     password = password_entry.get()
     new_data = {
@@ -66,7 +66,7 @@ def save_data():
 
 # ---------------------------- FIND PASSWORD ------------------------------- #
 def find_password():
-    website = website_entry.get()
+    website = website_entry.get() # use get() method to access the entries of the labels
     try:
         with open("data.json", "r") as data_file:
             data = json.load(data_file)
